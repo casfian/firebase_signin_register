@@ -1,0 +1,1 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[4],{132:function(t,e,n){"use strict";var o=n(0),c=n(37);e.a=function(){return Object(o.useContext)(c.a)}},99:function(t,e,n){"use strict";n.r(e);var o=n(0),c=n.n(o),a=n(2),r=n(132);e.default=function(){const t=Object(r.a)(),{siteConfig:e}=t;return c.a.createElement(a.a,{to:e.baseUrl+"docs/overview"})}}}]);
