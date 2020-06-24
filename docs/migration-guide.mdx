@@ -151,6 +151,8 @@ Any Firestore specific errors now return a `FirebaseException` (see Core changes
 
 - **`Query`**:
   - **BREAKING**: The internal query logic has been overhauled to better assert invalid queries locally.
+  - **BREAKING**: `getDocuments`/`get` has been updated to accept an instance of `GetOptions` (see below).
+  - **DEPRECATED**: Calling `getDocuments()` is deprecated in favor of `get()`.
   - **NEW**: Query methods are now chainable.
   - **NEW**: It is now possible to call same-point cursor based queries without throwing (e.g. calling `endAt()` and then `endBefore()` will replace the "end" cursor query with the `endBefore`).
   - **NEW**: Added support for `limitToLast`.
@@ -162,6 +164,7 @@ Any Firestore specific errors now return a `FirebaseException` (see Core changes
 
 - **`DocumentReference`**:
   - **BREAKING**: `setData`/`set` has been updated to accept an instance of `SetOptions` (see below, supports `mergeFields`).
+  - **BREAKING**: `get()` has been updated to accept an instance of `GetOptions` (see below).
   - **BREAKING**: Getting a document parent collection via `parent()` has been changed to a getter `parent`.
   - **DEPRECATED**: `documentID` has been deprecated in favor of `id`.
   - **DEPRECATED**: `setData()` has been deprecated in favor of `set()`.
@@ -171,6 +174,9 @@ Any Firestore specific errors now return a `FirebaseException` (see Core changes
   - **BREAKING**: Getting a snapshots data via the `data` getter is now done via the `data()` method.
   - **DEPRECATED**: `documentID` has been deprecated in favor of `id`.
   - **NEW**: Added support for fetching nested snapshot data via the `get()` method. If no data exists at the given path, a `StateError` will be thrown.
+
+- **`DocumentChange`**:
+  - **DEPRECATED**: Calling `document()` is deprecated in favor of `doc()`.
 
 - **`WriteBatch`**:
   - **BREAKING**: `setData`/`set` now supports `SetOptions` to merge data/fields (previously this accepted a `Map`).
