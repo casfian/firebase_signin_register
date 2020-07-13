@@ -185,3 +185,120 @@ Future<UserCredential> signInWithFacebook() async {
 </Tabs>
 
 
+
+### Apple
+
+Apple has [announced](https://developer.apple.com/news/?id=09122019b) that any applications using 3rd party login
+services (such as Facebook, Twitter, Google etc) must have an Apple Sign-In method.  Apple Sign-In is not required for Android devices.secret
+
+To integrate Apple Sign-In on your iOS application, you will need to install a 3rd party library to authenticate with Apple.
+Once authentication is successful, a Firebase credential can then be used to sign the user into Firebase with their Apple account
+
+> To Do
+
+```dart title="NEEDS UPDATING/VALIDATING"
+// Apple credentials
+final FirebaseUser user = (await FirebaseAuth.instance.signInWithCredential(credential)).user;
+```
+
+### Twitter
+
+Ensure the "Twitter" sign-in provider is enabled on the [Firebase Console](https://console.firebase.google.com/project/_/authentication/providers)
+with API Key and API Secret set.
+
+#### Installation
+
+1. Add dependency
+
+```yaml {2} title="pubspec.yaml"
+dependencies:
+  flutter_twitter: ^1.1.3
+```
+
+2. Download dependency
+
+```
+$ flutter pub get
+```
+
+#### Usage
+
+Once the plugin is installed, we first need to initialize the Twitter plugin using the consumer key and secret.
+
+We can then trigger the Twitter login flow by calling the `authorize` method, and then generate an `AuthCredential` from
+the `TwitterAuthProvider`, passing in the accessToken and secrete from the session.
+
+We can then pass this `AuthCredential` to the `signInWithCredential` method to sign the user into Firebase
+
+```dart title="NEEDS UPDATING/VALIDATING"
+import 'package:flutter_twitter/flutter_twitter.dart';
+
+Future<void> signInWithTwitter() async {
+  try {
+      final TwitterLogin twitterLogin = new TwitterLogin(
+          consumerKey: 'abc',
+          consumerSecret: '123'
+      );
+
+      final TwitterLoginResult loginResult = await twitterLogin.authorize();
+      final TwitterSession twitterSession = loginResult.session;
+
+      final AuthCredential authCredential = TwitterAuthProvider.credential(accessToken: twitterSession.token, secret: twitterSession.secret);
+
+      await FirebaseAuth.instance.signInWithCredential(authCredential);
+  } catch (e) {
+      // Handle Error
+  }
+}
+```
+
+When the user has successfully signed in, any [`authStateChanges`](usage#authentication-state) listeners will trigger with the new authentication state
+of the user
+
+
+## GitHub
+
+Ensure the "GitHub" sign-in provider is enabled on the [Firebase Console](https://console.firebase.google.com/project/_/authentication/providers)
+with the Client ID and secret set.
+
+#### Installation
+
+1. Add dependency
+
+```yaml {2} title="pubspec.yaml"
+dependencies:
+  github_sign_in: ^0.0.1
+```
+
+2. Download dependency
+
+```
+$ flutter pub get
+```
+
+#### Usage
+
+```dart title="NEEDS UPDATING/VALIDATING"
+import 'package:github_sign_in/github_sign_in.dart';
+
+Future<void> signInWithGitHub() async {
+  try {
+    final GitHubSignIn gitHubSignIn = GitHubSignIn(
+            clientId: clientId,
+            clientSecret: clientSecret,
+            redirectUrl: redirectUrl);
+
+    var result = await gitHubSignIn.signIn(context);
+    final AuthCredential authCredential = GithubAuthProvider.credential(result.token);
+
+    await FirebaseAuth.instance.signInWithCredential(authCredential);
+
+  } catch (e) {
+      // Handle Error
+  }
+}
+```
+
+When the user has successfully signed in, any [`authStateChanges`](usage#authentication-state) listeners will trigger with the new authentication state
+of the user
+
