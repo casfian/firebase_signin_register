@@ -1,0 +1,1 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[5],{142:function(e,t,n){"use strict";n.r(t);var a=n(0),o=n.n(a),r=n(1),c=n(181);t.default=function(){var e=Object(c.a)().siteConfig;return o.a.createElement(r.a,{to:e.baseUrl+"docs/overview"})}},181:function(e,t,n){"use strict";var a=n(0),o=n(57);t.a=function(){return Object(a.useContext)(o.a)}}}]);
